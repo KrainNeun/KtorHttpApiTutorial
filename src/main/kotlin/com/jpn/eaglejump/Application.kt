@@ -11,13 +11,11 @@ import io.ktor.server.netty.*
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
-fun Application.module() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        install(ContentNegotiation) {
-            json()
-        }
-        setDefaultRoutes()
-        setCustomerRoutes()
-        setOrderRoutes()
-    }.start(wait = true)
+fun Application.module(testing: Boolean = false) {
+    install(ContentNegotiation) {
+        json()
+    }
+    setDefaultRoutes()
+    setCustomerRoutes()
+    setOrderRoutes()
 }
