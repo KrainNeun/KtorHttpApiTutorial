@@ -1,12 +1,10 @@
-package com.jpn.eaglejump.plugins
+package com.jpn.eaglejump.routes
 
-import io.ktor.routing.*
-import io.ktor.http.*
 import io.ktor.application.*
 import io.ktor.response.*
-import io.ktor.request.*
+import io.ktor.routing.*
 
-fun Application.configureRouting() {
+fun Application.setDefaultRoutes() {
 
     routing {
         get("/") {
