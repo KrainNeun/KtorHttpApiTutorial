@@ -1,0 +1,16 @@
+POST http://127.0.0.1:8080/login
+Content-Type: application/json
+
+{
+  "id": "USER-ID",
+  "password": "password"
+}
+
+> {%
+    client.global.set("access_token", response.body.token);
+  %}
+
+###
+GET http://127.0.0.1:8080/hello
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
