@@ -2,6 +2,8 @@ package com.jpn.eaglejump
 
 import com.example.plugins.configureSerialization
 import com.jpn.eaglejump.plugins.configureSecurity
+import com.jpn.eaglejump.plugins.connectDatabase
+import com.jpn.eaglejump.plugins.migrationDatabase
 import com.jpn.eaglejump.routes.setCustomerRoutes
 import com.jpn.eaglejump.routes.setDefaultRoutes
 import com.jpn.eaglejump.routes.setLoginRoutes
@@ -21,4 +23,8 @@ fun Application.module(testing: Boolean = false) {
     setDefaultRoutes()
     setCustomerRoutes()
     setOrderRoutes()
+
+    // database
+    connectDatabase()
+    migrationDatabase()
 }
