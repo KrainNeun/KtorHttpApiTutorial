@@ -1,20 +1,19 @@
 package com.jpn.eaglejump.plugins
 
-import io.ktor.http.*
-import io.ktor.features.*
 import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.request.*
+import io.ktor.features.*
+import io.ktor.http.*
 
 fun Application.configureHTTP() {
     install(CORS) {
+        host("0.0.0.0:5000")
         method(HttpMethod.Options)
         method(HttpMethod.Put)
         method(HttpMethod.Delete)
         method(HttpMethod.Patch)
+        header(HttpHeaders.ContentType)
         header(HttpHeaders.Authorization)
         header("MyCustomHeader")
         allowCredentials = true
-        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
 }
