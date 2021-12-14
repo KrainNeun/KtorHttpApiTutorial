@@ -2,8 +2,9 @@ package com.jpn.eaglejump.routes
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
+import com.jpn.eaglejump.models.User
 import com.jpn.eaglejump.models.UserInput
-import com.jpn.eaglejump.models.userStorage
+import com.jpn.eaglejump.models.authenticate
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -19,10 +20,11 @@ fun Route.loginRouting(environment: ApplicationEnvironment) {
             val issuer = environment.config.property("jwt.issuer").getString()
             val audience = environment.config.property("jwt.audience").getString()
             val userInput = call.receive<UserInput>()
-            val user = userStorage.find { it.id == userInput.id && it.password == userInput.password }
-                ?: return@post call.respondText(
-                    "user or password is not valid", status = HttpStatusCode.BadRequest
-                )
+
+            val user: User = authenticate(userInput.id, userInput.password) ?: return@post call.respondText(
+                "user or password is not valid", status = HttpStatusCode.BadRequest
+            )
+
             val token = JWT.create()
                 .withAudience(audience)
                 .withIssuer(issuer)
